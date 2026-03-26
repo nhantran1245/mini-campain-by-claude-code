@@ -13,8 +13,10 @@ RUN yarn install --frozen-lockfile
 # Copy frontend source
 COPY frontend ./frontend
 
-# Build frontend
+# Build frontend with API URL
 WORKDIR /app/frontend
+ARG VITE_API_URL=http://localhost:3000/api
+ENV VITE_API_URL=$VITE_API_URL
 RUN yarn build
 
 # Production stage with nginx
