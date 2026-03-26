@@ -1,0 +1,27 @@
+# Development docker-compose with hot reload
+# Usage: docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile.dev
+    volumes:
+      - ./backend/src:/app/backend/src
+      - ./backend/package.json:/app/backend/package.json
+    environment:
+      NODE_ENV: development
+    command: yarn workspace backend dev
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile.dev
+    volumes:
+      - ./frontend/src:/app/frontend/src
+      - ./frontend/public:/app/frontend/public
+      - ./frontend/index.html:/app/frontend/index.html
+      - ./frontend/package.json:/app/frontend/package.json
+    environment:
+      VITE_API_URL: http://localhost:3000/api
+    command: yarn workspace frontend dev --host

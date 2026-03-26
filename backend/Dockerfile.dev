@@ -1,0 +1,22 @@
+# Development Dockerfile with hot reload
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Copy workspace files
+COPY package.json yarn.lock ./
+COPY backend/package.json ./backend/
+
+# Install all dependencies (including dev)
+RUN yarn install --frozen-lockfile
+
+# Copy backend source
+COPY backend ./backend
+
+WORKDIR /app/backend
+
+# Expose port
+EXPOSE 3000
+
+# Start with tsx watch for hot reload
+CMD ["yarn", "dev"]
