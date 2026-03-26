@@ -27,7 +27,13 @@ git clone https://github.com/nhantran1245/mini-campain-by-claude-code.git
 cd mini-campain-by-claude-code
 
 # create .env file
+# on Mac, Linux
 cp .env.example .env 
+# or on Windows CMD
+copy .env.example .env
+#or PowerShell
+Copy-Item .env.example .env
+
 # Start all services
 docker-compose up -d
 ```
